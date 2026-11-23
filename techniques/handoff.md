@@ -1,10 +1,10 @@
-# Передать проект на одной странице
+# Hand off a project on one page
 
-Применяйте при смене исполнителя или в начале нового чата. Стартовая страница отвечает на три вопроса: что мы делаем, какие решения ограничивают работу и что пока открыто.
+Use this when a teammate takes over or an assistant starts a fresh chat. A start page should tell the reader what the project does, which decisions constrain the work and which questions are open.
 
-1. Назовите проект и его пользователя одним предложением.
-2. Выпишите решения, без которых следующий исполнитель может повторить уже разобранную ошибку. К каждому добавьте ссылку на объяснение.
-3. Вынесите догадки в отдельный список. Если правило изменилось, обновите ссылку на действующее решение.
-4. Дайте страницу коллеге и попросите объяснить один выбор и назвать один открытый вопрос. Если для ответа нужен устный пересказ, добавьте недостающий источник.
+1. Name the project and its intended user in one sentence.
+2. List the decisions a new contributor needs to avoid repeating a known mistake. Link each one to its reasoning.
+3. Give open questions their own section. When a decision changes, point readers to the current record.
+4. Hand the page to a colleague. Ask them to explain one choice and name one unresolved question. If they need a verbal explanation, add the missing detail or source.
 
-В [учебном примере](../examples/lantern/START-HERE.md) таким выбором стал печатный код для ручного поиска. Для своего проекта можно взять [пустую страницу](../template/START-HERE.md).
+See the [film club's handoff](../examples/lantern/START-HERE.md), or copy the [blank start page](../template/START-HERE.md).

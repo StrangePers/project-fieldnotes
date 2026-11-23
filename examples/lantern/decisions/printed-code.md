@@ -1,10 +1,10 @@
-# Печатать короткий код под QR
+# Print the booking code below the QR
 
-**Статус и дата** — принято, 2026-04-13.
-**Область действия** — бумажные билеты на показы киноклуба «Фонарь».
+- **Status and date** — accepted, 2026-04-13
+- **Scope** — paper tickets for Lantern Film Club screenings
 
-Под QR печатаем тот же код бронирования, который указан в списке на входе. На репетиции сканер пропустил два сложенных билета. В обоих случаях волонтёр нашёл строку вручную по читаемому коду. Сведения о размере шрифта в этом испытании не собирали.
+Print the same booking code that appears on the volunteer's door list. During rehearsal, two folded tickets failed to scan. The volunteer read the printed code and found the booking manually both times.
 
-**Источник** — [протокол репетиции от 12 апреля](../evidence/door-rehearsal.md).
+**Source.** The [April 12 rehearsal log](../evidence/door-rehearsal.md) records all six attempts.
 
-**Когда пересмотреть.** Если у волонтёров исчезнет список с кодами бронирования, потребуется проверить другой способ ручной регистрации.
+**When to revisit.** If volunteers lose access to a list indexed by booking code, test another way to check people in manually.

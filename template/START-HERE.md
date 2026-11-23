@@ -1,19 +1,19 @@
-# [Название проекта]
+# [Project name]
 
-[В одном предложении укажите, для кого проект и какую задачу он решает.]
+[In one sentence, who is this for and what does it help them do?]
 
-## Перед началом работы
+## Before you start
 
-[Какие правила проекта открыть? Какие ограничения нужно знать, чтобы выполнить текущую задачу? Добавьте ссылки на первоисточники.]
+[Link to the project rules and sources a new contributor needs for the task at hand.]
 
-## Действующие решения
+## Current decisions
 
-[Для каждого решения добавьте ссылку на заполненную запись и коротко укажите, на какой вопрос она отвечает.]
+[Link each decision record and name the question it answers.]
 
-## Открытые вопросы
+## Open questions
 
-[Какое предположение ещё предстоит проверить? Добавьте ссылку на заметку и укажите, что будет считаться ответом.]
+[Link to an idea under investigation. What evidence would settle the question?]
 
-## Добавить запись
+## Add a record
 
-Скопируйте [бланк решения](decisions/decision.md) или [бланк идеи](inbox/idea.md) под новым именем в той же папке. Добавьте ссылку выше. При смене решения сохраните прежнюю запись со статусом «заменено» и ссылкой на её преемника.
+Copy the [decision template](decisions/decision.md) or the [idea template](inbox/idea.md) under a new name in the same folder. Link the new record above. When a decision changes, mark the old one as superseded and link to its replacement.

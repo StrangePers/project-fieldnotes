@@ -1,10 +1,10 @@
-# Проверить идею перед переносом в память
+# Test an idea before adopting it
 
-Используйте, когда наблюдение допускает несколько объяснений. Цель — сохранить полезный вопрос и показать, какой вывод уже можно сделать.
+Use this when an observation has several possible explanations and the team wants to act on one of them.
 
-1. Поместите наблюдение и предполагаемую причину в черновик. Отметьте статус «гипотеза».
-2. До проверки запишите, что именно сравните, в каких условиях и какой результат изменит решение.
-3. Приложите результат, дату и источник. Если данных мало, оставьте вопрос открытым и поясните, чего не хватает.
-4. Когда команда выберет действие, создайте отдельную запись решения. Свяжите её с черновиком и укажите границы вывода.
+1. Record the observation and your proposed explanation. Mark the note as a hypothesis.
+2. Before testing, specify what to compare, under what conditions and which result would change your decision.
+3. Record the date, evidence and limits of the check. If the evidence is inconclusive, say what is still missing.
+4. Once the team chooses an action, create a decision record. Link it back to the investigation and state where the conclusion applies.
 
-Для самопроверки дайте обе записи другому человеку. Он должен отличить наблюдение, объяснение и принятое действие. В [примере со шрифтом билета](../examples/lantern/inbox/type-size.md) описана будущая проверка. Свой эксперимент можно начать с [бланка идеи](../template/inbox/idea.md).
+Ask another reader to identify the observation, the hypothesis and any action already adopted. The [ticket type-size note](../examples/lantern/inbox/type-size.md) shows what an open question looks like. Use the [idea template](../template/inbox/idea.md) to describe your own check.

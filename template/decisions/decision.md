@@ -1,16 +1,16 @@
-# [Какой выбор сделали]
+# [Choice the team made]
 
-**Статус и дата** — [принято / заменено, ГГГГ-ММ-ДД].
-**Область действия** — [где применяется выбор].
+- **Status and date** — [accepted or superseded, YYYY-MM-DD]
+- **Scope** — [where the choice applies]
 
-## Решение и причина
+## Decision and reason
 
-[Что делаем? Какое наблюдение или ограничение повлияло на выбор?]
+[What did the team choose? Which observation or constraint led to that choice?]
 
-## Источник
+## Source
 
-[Ссылка на проверку, спецификацию или датированное решение ответственного. Что именно источник подтверждает?]
+[Link to a test, specification or dated decision by the person responsible. What does the source establish?]
 
-## Когда пересмотреть
+## When to revisit
 
-[Какое изменение лишит решение основания? Для заменённой записи добавьте ссылку на новое решение.]
+[What change would call the choice into question? If it has been superseded, link to its replacement.]

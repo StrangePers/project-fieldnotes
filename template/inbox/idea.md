@@ -1,16 +1,16 @@
-# [Что хотим проверить]
+# [Question to investigate]
 
-**Статус** — гипотеза.
-**Дата записи** — [ГГГГ-ММ-ДД].
+- **Status** — hypothesis
+- **Date recorded** — [YYYY-MM-DD]
 
-## Наблюдение
+## Observation
 
-[Что произошло и где это можно проверить? Отделите наблюдение от предполагаемого объяснения.]
+[What happened and where was it recorded? What might explain it?]
 
-## Проверка
+## Proposed check
 
-[Какое сравнение проведём? Что запишем? Какой результат позволит принять решение и для каких условий?]
+[What will you compare? Under what conditions? Which result would justify a decision?]
 
-## Итог
+## Outcome
 
-[После проверки укажите дату, источник, результат и ограничения. Если принято решение, свяжите его с этой заметкой.]
+[After the check, add its date, source, outcome and limitations. If the team makes a decision, link to the decision record.]

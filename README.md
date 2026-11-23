@@ -1,24 +1,27 @@
-# ReasonWren
+# Project Fieldnotes
 
-Почему мы выбрали именно так? ReasonWren помогает сохранить ответ рядом с проектом, чтобы коллега или AI-агент мог восстановить причину решения и открыть его источник в новом чате.
+Markdown templates for documenting project decisions and sharing techniques across projects.
 
-Посмотрите на [пример регистрации гостей на кинопоказ](examples/lantern/START-HERE.md). У команды есть причина печатать код под QR и пока есть только догадка о том, какой шрифт ускорит вход. В записях видно, на чём основано каждое утверждение.
+Why did the team print a booking code under the QR on each ticket? Start with the [Lantern Film Club's project notes](examples/lantern/START-HERE.md). Follow one decision to the rehearsal that prompted it. The same page also records a question the team still can't answer.
 
-## Подключить свой проект
+[Читать по-русски](ru/README.md)
 
-1. Скопируйте папку [template](template/) в свой проект под свободным именем, например `project-notes/`. Для личных записей выберите закрытое хранилище. Можно начать и в отдельном Git-репозитории, созданном по этому шаблону.
-2. Откройте [стартовую страницу](template/START-HERE.md). Заполните название, назначение проекта и границы задачи. Скопируйте бланк решения в той же папке под осмысленным именем. Запишите один выбор, его причину и ссылку на доступный команде источник.
-3. Добавьте ссылку на заполненную запись в раздел «Действующие решения» вашей стартовой страницы. Чтобы чаты находили её сами, добавьте в существующие инструкции проекта одну строку: «Перед вопросами о решениях прочитай `project-notes/START-HERE.md`». Укажите путь, который выбрали на первом шаге.
-4. Откройте новый чат с доступом к проекту. Попросите: «Прочитай стартовую страницу проекта. Почему мы приняли это решение? Дай ссылку на источник и назови условие пересмотра». Откройте ссылку и сверьте ответ. Если агенту недоступен источник, в ответе должно быть видно, что именно он смог прочесть.
+## Start a notebook for your project
 
-Для второй базы скопируйте исходную папку шаблона ещё раз. Проекты могут хранить заметки в собственных репозиториях.
+1. Copy the [template folder](template/) into your repository as `project-notes/`, or choose another unused name. Keep notes about private work in a private repository.
+2. Fill in the [start page](template/START-HERE.md). In `project-notes/decisions/`, copy `decision.md` under a name that describes a choice your team made. Write down the reason, link the evidence and say when to revisit it.
+3. Link that record under **Current decisions** on your start page. If you use an AI coding assistant, add this sentence to your project's existing instructions, adjusting the path if necessary:
 
-## Взять одну технику
+   > When answering questions about project decisions, read `project-notes/START-HERE.md` and follow the relevant source link.
 
-| Когда пригодится | Что открыть |
+4. In a fresh chat with access to the project, ask why the team made that choice and what would make it reconsider. Open the source in the answer and check that it supports the explanation. If the source is inaccessible, ask which record the assistant could verify.
+
+## Borrow a technique
+
+| When you need to… | Try this |
 | --- | --- |
-| В начале каждого чата приходится заново объяснять проект | [Передать проект на одной странице](techniques/handoff.md) |
-| Через месяц трудно вспомнить причину выбора | [Записать решение с источником](techniques/decision.md) |
-| Наблюдение выглядит полезным, но его ещё предстоит проверить | [Проверить идею перед переносом в память](techniques/verify-an-idea.md) |
+| Bring a teammate or a fresh chat up to speed | [Hand off a project on one page](techniques/handoff.md) |
+| Preserve the reason behind a choice | [Write a decision with its source](techniques/decision.md) |
+| Decide whether an observation warrants a change | [Test an idea before adopting it](techniques/verify-an-idea.md) |
 
-Карточки можно применять по одной в уже существующей документации. Для начала достаточно текстового редактора.
+Each technique works on its own in your existing docs. The templates need only a text editor.

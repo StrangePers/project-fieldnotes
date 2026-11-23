@@ -1,19 +1,19 @@
-# Киноклуб «Фонарь»
+# Lantern Film Club
 
-Учебный вымышленный проект. Команда проводит вечерние показы. На входе волонтёр отмечает гостя по билету в бумажном списке или через сканер.
+A fictional project. At evening screenings, a volunteer checks guests in by scanning their tickets or looking them up on a printed list.
 
-## Перед началом работы
+## Before you start
 
-Для макета бумажного билета учитываем, что часть распечаток поступает со сгибом. Наблюдения собраны в [протоколе репетиции](evidence/door-rehearsal.md).
+Some guests bring folded paper tickets. The [door rehearsal log](evidence/door-rehearsal.md) records what happened when a fold crossed the QR code.
 
-## Действующие решения
+## Current decisions
 
-- [Печатать короткий код под QR](decisions/printed-code.md) — как волонтёр найдёт билет, если сканер его пропустил?
+- [Print the booking code below the QR](decisions/printed-code.md). How can a volunteer find a booking when a scan fails?
 
-## Открытые вопросы
+## Open questions
 
-- [Ускорит ли более крупный шрифт ручной поиск?](inbox/type-size.md) Запланировано сравнение двух макетов.
+- [Would larger type speed up manual lookup?](inbox/type-size.md) The team has designed a comparison of two layouts.
 
-## Попробуйте в новом чате
+## Try it in a fresh chat
 
-Попросите объяснить, зачем под QR нужен код, и найти запись, на которой основан выбор. Затем спросите, какой размер шрифта команда уже признала лучшим. Для первого ответа есть наблюдение на репетиции. Для второго пока есть только план сравнения.
+Ask why the team prints a booking code beneath the QR and request a link to the observation that prompted the decision. Then ask which type size performed best. Check whether the answer distinguishes the completed rehearsal from the planned comparison.

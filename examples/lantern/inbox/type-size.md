@@ -1,13 +1,13 @@
-# Поможет ли крупный шрифт быстрее найти билет?
+# Would larger type speed up manual lookup?
 
-**Статус** — гипотеза, 2026-04-13.
+**Status** — hypothesis, 2026-04-13.
 
-На [репетиции](../evidence/door-rehearsal.md) волонтёр дважды прочитал код под QR. Есть идея увеличить кегль с 12 до 16 пунктов. Исходный опыт подтверждает возможность ручного поиска. Влияние кегля на скорость пока неизвестно.
+At the [door rehearsal](../evidence/door-rehearsal.md) the volunteer twice used the printed code to find a booking. The team wants to try increasing the type size from 12 to 16 points. The rehearsal established that manual lookup was possible. Lookup speed is still unknown.
 
-## Как проверим
+## Proposed check
 
-Подготовим два комплекта по десять новых кодов с разным кеглем. Два волонтёра начнут с разных комплектов. Запишем время каждого поиска и число ошибок. Предложим крупный шрифт, если у обоих волонтёров уменьшится медианное время и число ошибок ни у кого не вырастет.
+Prepare two sets of ten fresh codes, one set in each size. Have two volunteers start with different sets, then switch. Record the time and any errors for each lookup. Recommend the larger type if both volunteers' median lookup times improve and neither makes more errors.
 
-## Итог
+## Outcome
 
-Сравнение ещё не проведено. Вопрос остаётся открытым.
+The comparison has yet to run. The question is open.

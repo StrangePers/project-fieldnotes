@@ -1,10 +1,10 @@
-# Протокол репетиции входа
+# Door rehearsal log
 
-Учебные данные. 12 апреля 2026 года волонтёр попробовал зарегистрировать шесть бумажных билетов. У каждого под QR был указан код, совпадающий со строкой тестового списка.
+Fictional observations, 2026-04-12. A volunteer tried to check in six paper tickets. Each had a printed booking code that matched an entry on the test list.
 
-| Попытки | Состояние билета | Что произошло |
+| Attempts | Ticket condition | Observation |
 | --- | --- | --- |
-| 1–4 | Лист без сгиба | Сканер прочитал все четыре QR |
-| 5–6 | Сгиб пересекал QR | Сканер пропустил оба билета. Волонтёр прочитал код под QR и нашёл обе строки |
+| 1–4 | Flat | All four QR codes scanned successfully. |
+| 5–6 | Fold across the QR | Both scans failed. The volunteer read the printed booking codes and found both entries. |
 
-Размер шрифта был одинаковым на всех шести билетах. Время поиска не замеряли.
+All six tickets used the same type size. The volunteer did not time the lookups.
