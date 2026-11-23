@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT
 """Regression tests for project-local synchronization. No installed AI clients required."""
 
 import contextlib

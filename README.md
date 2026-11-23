@@ -30,6 +30,8 @@ Each technique works on its own in your existing docs. The templates need only a
 
 ## License
 
+The Python CLI and its tests use the [MIT License](LICENSES/MIT.txt). You can use and adapt them commercially. Include the copyright and permission notice when distributing copies or substantial portions.
+
 You can copy the [blank templates](template/) into a private or commercial project and fill them in without attribution. They are available under [CC0 1.0](template/LICENSE).
 
 You can share, translate and adapt the guides and worked examples under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). When sharing them, credit **Project Fieldnotes by StrangePers**, link to the project and license, and indicate any changes. See the [license notice](LICENSE) for a ready-to-copy credit.

@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT
 """Sync one Fieldnotes workspace profile to a Git checkout (Python 3.11+)."""
 
 import argparse

@@ -1,6 +1,9 @@
 Project Fieldnotes
 Copyright 2026 StrangePers
 
+The Python CLI (fieldnotes.py) and its tests (tests/) are licensed under
+the MIT License. See LICENSES/MIT.txt.
+
 The README files, guides, techniques and worked examples (including the
 sample workspace and its skill) are licensed under Creative Commons
 Attribution 4.0 International (CC BY 4.0) in both languages.
