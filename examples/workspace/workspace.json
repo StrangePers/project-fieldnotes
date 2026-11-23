@@ -1,0 +1,26 @@
+{
+  "version": 1,
+  "mcp": {
+    "protocol-docs": {
+      "url": "https://modelcontextprotocol.io/mcp"
+    }
+  },
+  "projects": {
+    "lantern": {
+      "skills": [
+        "decision-review"
+      ],
+      "mcp": [],
+      "notes": "projects/lantern"
+    },
+    "docs-site": {
+      "skills": [
+        "decision-review"
+      ],
+      "mcp": [
+        "protocol-docs"
+      ],
+      "notes": "projects/docs-site"
+    }
+  }
+}

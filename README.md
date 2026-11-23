@@ -1,6 +1,8 @@
 # Project Fieldnotes
 
-Markdown templates for documenting project decisions and sharing techniques across projects.
+Manage shared AI skills, MCP connections and project notes across repositories. A private workspace supplies each project with the resources it needs in Claude Code and Codex.
+
+[Try one workspace with two projects](docs/workspaces.md). The local Python CLI previews changes, applies them to a checkout and detects conflicting edits. For a Markdown-only notebook, use the templates below.
 
 Why did the team print a booking code under the QR on each ticket? Start with the [Lantern Film Club's project notes](examples/lantern/START-HERE.md). Follow one decision to the rehearsal that prompted it. The same page also records a question the team still can't answer.
 
