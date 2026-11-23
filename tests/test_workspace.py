@@ -147,5 +147,65 @@ class WorkspaceSync(unittest.TestCase):
         self.assertEqual(tomllib.loads((self.target / ".codex/config.toml").read_text())
                          ["mcp_servers"]["protocol-docs"], spec)
 
+    def test_init_and_batch_sync_preflight_all_targets(self):
+        vault = self.root / "new private workspace"
+        second = self.root / "second"
+        subprocess.run(["git", "init", "-q", second], check=True)
+        with contextlib.redirect_stdout(io.StringIO()):
+            fn.initialize(vault, self.target, "first")
+            fn.initialize(vault, self.target, "first")
+            fn.initialize(vault, second, "second")
+            skill = Path("skills/decision-review/SKILL.md")
+            source = vault / skill
+            source.write_bytes(source.read_bytes() + b"\nReview an update.\n")
+            tracked = self.target / ".agents" / skill
+            other = second / ".agents" / skill
+            old = tracked.read_bytes()
+            other.write_text("participant edit")
+            with self.assertRaises(fn.SyncError):
+                fn.sync_registered(vault, False)
+            self.assertEqual(tracked.read_bytes(), old)
+            other.write_bytes(old)
+            fn.sync_registered(vault, True)
+            self.assertEqual(tracked.read_bytes(), old)
+            fn.sync_registered(vault, False)
+            self.assertEqual(other.read_bytes(), source.read_bytes())
+            self.assertEqual(tracked.read_bytes(), source.read_bytes())
+            manifest = (vault / "workspace.json").read_text()
+            self.assertNotIn(str(self.target), manifest)
+            self.assertEqual(set(json.loads(manifest)["projects"]), {"first", "second"})
+
+    def test_pack_skills_are_selected_explicitly_and_collisions_fail(self):
+        pack = self.workspace / "packs/library/skills"
+        (pack / "screenshot-review").mkdir(parents=True)
+        (pack / "screenshot-review/SKILL.md").write_text("review screenshot")
+        manifest = self.workspace / "workspace.json"
+        data = json.loads(manifest.read_text())
+        data["skill_roots"] = ["packs/library/skills"]
+        manifest.write_text(json.dumps(data))
+        self.run_sync()
+        result = self.target / ".agents/skills/screenshot-review/SKILL.md"
+        self.assertFalse(result.exists())
+        data["projects"]["docs-site"]["skills"].append("screenshot-review")
+        manifest.write_text(json.dumps(data))
+        self.run_sync()
+        self.assertEqual(result.read_text(), "review screenshot")
+        shutil.copytree(self.workspace / "skills/decision-review", pack / "decision-review")
+        with self.assertRaisesRegex(fn.SyncError, "found 2"):
+            self.run_sync()
+
+    def test_init_keeps_existing_notes_and_rejects_unrelated_directories(self):
+        notes = self.workspace / "projects/lantern/START-HERE.md"
+        old = notes.read_bytes()
+        with contextlib.redirect_stdout(io.StringIO()):
+            fn.initialize(self.workspace, self.target, "lantern")
+        self.assertEqual(notes.read_bytes(), old)
+        foreign = self.root / "unrelated"
+        foreign.mkdir()
+        (foreign / "notes.txt").write_text("keep")
+        with self.assertRaises(fn.SyncError):
+            fn.initialize(foreign, self.target, "lantern")
+        self.assertFalse((foreign / ".git").exists())
+
 if __name__ == "__main__":
     unittest.main()

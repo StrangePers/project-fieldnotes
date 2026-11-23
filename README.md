@@ -2,7 +2,15 @@
 
 Manage shared AI skills, MCP connections and project notes across repositories. A private workspace supplies each project with the resources it needs in Claude Code and Codex.
 
-[Try one workspace with two projects](docs/workspaces.md). The local Python CLI previews changes, applies them to a checkout and detects conflicting edits. For a Markdown-only notebook, use the templates below.
+## Connect your first project
+
+From a clone of Project Fieldnotes, run the following with Python 3.11+ and Git, replacing the path with the root of your existing project:
+
+```sh
+python fieldnotes.py init /path/to/your-project
+```
+
+This creates a local workspace at `~/fieldnotes-workspace`, connects the checkout to a starter skill and prints the start page to edit. Run the same command with another project's path to connect it. After editing the workspace, run `python fieldnotes.py sync` once to update all connected projects. Use `sync --check` for a preview. [Custom paths, skill packs and selective MCP setup](docs/workspaces.md).
 
 Why did the team print a booking code under the QR on each ticket? Start with the [Lantern Film Club's project notes](examples/lantern/START-HERE.md). Follow one decision to the rehearsal that prompted it. The same page also records a question the team still can't answer.
 

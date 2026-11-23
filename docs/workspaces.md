@@ -2,6 +2,18 @@
 
 A workspace is a directory you control, usually a private Git repository. It holds the source of each shared skill, the definitions of MCP connections and notes for each project. A profile in `workspace.json` selects what a checkout receives. The checkout path is a local command argument, so teammates can use different directory layouts.
 
+## Connect real projects
+
+Run `python fieldnotes.py init /path/to/checkout` from the tool repository for each Git checkout. The default workspace is `~/fieldnotes-workspace`. On a second machine, clone your private workspace there first. For a different location, pass `--workspace PATH` to both `init` and `sync`. Use `init ... --project NAME` to pick an existing profile or give two similarly named projects distinct names. An existing profile keeps its selections. New profiles start with project notes, the local decision-review skill when available, and no MCP connections.
+
+Change the source skill once, then run `python fieldnotes.py sync --check` to preview all registered checkouts or `python fieldnotes.py sync` to apply. All checkouts are checked for conflicts before the first write. An interruption during application can leave some checkouts updated; resolve any conflict and repeat the command. Pull changes to a shared workspace with your usual Git workflow before syncing.
+
+Checkout paths are registered only on this machine in the workspace Git metadata under `project-fieldnotes-workspace/checkouts.json`. If a checkout moves, remove its stale entry in that file and run `init` at the new path. A fresh clone registers its own local checkouts. Select individual checkout operations with the original `plan` and `apply` commands below.
+
+## Use a skill pack
+
+A project selects skills by name. By default they come from `skills/` in the workspace. To add a reviewed pack, put it in the workspace (for example as a Git submodule at `packs/library`) and add a top-level entry `"skill_roots": ["packs/library/skills"]` to `workspace.json`. Add just the desired skill names to a project's `skills` list. An ambiguous name stops the preview. Teammates get the pack revision recorded by Git with `git submodule update --init`. Fieldnotes reads local files and does not fetch or execute the pack during sync.
+
 ## Try the sample
 
 **Client compatibility on Windows.** Codex CLI 0.166.0 and Claude Code 2.1.316 passed the skill, instruction and project-specific MCP checks. In a separate test, Codex CLI 0.41.0 loaded the project instructions but missed the shared skill in both checkouts and the selected MCP server in the documentation checkout. Run `codex --version` when investigating this symptom. Versions between these two Codex releases have not been tested here.

@@ -9,6 +9,7 @@ import json
 import os
 from pathlib import Path
 import re
+import shutil
 import stat
 import subprocess
 import tempfile
@@ -103,8 +104,18 @@ def desired(workspace, project):
     units = {".fieldnotes/.gitignore": b"/.gitignore\n/notes/\n"}
     for name, data in source_files(workspace, profile["notes"], "START-HERE.md").items():
         units[".fieldnotes/notes/" + name] = data
+    extra_roots = manifest.get("skill_roots", [])
+    if not isinstance(extra_roots, list):
+        raise SyncError("skill_roots must be a list of relative directories")
+    roots = ["skills", *extra_roots]
+    for directory in roots:
+        safe_path(workspace, directory)
     for skill in selection(profile, "skills"):
-        resources = source_files(workspace, "skills/" + skill, "SKILL.md")
+        matches = [directory + "/" + skill for directory in roots
+                   if safe_path(workspace, directory + "/" + skill + "/SKILL.md").is_file()]
+        if len(matches) != 1:
+            raise SyncError(f"Expected one source for {skill}, found {len(matches)}. Check skill_roots and installed packs.")
+        resources = source_files(workspace, matches[0], "SKILL.md")
         if any(Path(name).name.casefold() == ".gitignore" for name in resources):
             raise SyncError(f"Fieldnotes manages Git exclusion for skill {skill}")
         for folder in (".agents/skills", ".claude/skills"):
@@ -281,7 +292,7 @@ def git_path(target, option):
     return Path(result.stdout.strip()).resolve()
 
 
-def sync(action, workspace, project, target):
+def sync(action, workspace, project, target, *, register=False):
     target = target.resolve()
     if git_path(target, "--show-toplevel") != target:
         raise SyncError("Target must be the root of a Git checkout")
@@ -290,6 +301,10 @@ def sync(action, workspace, project, target):
         raise SyncError("Keep the source workspace and target checkout in separate directories")
     metadata = git_path(target, "--absolute-git-dir") / "project-fieldnotes"
     with write_lock(metadata) if action == "apply" else nullcontext():
+        binding = metadata / "binding.json"
+        identity = {"workspace": str(workspace), "project": project}
+        if binding.exists() and read_json(binding.read_bytes()) != identity:
+            raise SyncError(f"Checkout is registered to another profile: {target}")
         ledger = metadata / "state.json"
         previous = read_json(ledger.read_bytes()) if ledger.exists() else {}
         wanted = desired(workspace, project)
@@ -305,7 +320,11 @@ def sync(action, workspace, project, target):
             print(f"{verb:6} {name}")
         print(f"{len(changes)} file(s) to change")
         final = {k: [fingerprint(v)] for k, v in wanted.items()}
-        if action != "apply" or (not changes and previous == final):
+        if action != "apply":
+            return
+        if not changes and previous == final:
+            if register and not binding.exists():
+                atomic_write(binding, json_bytes(identity))
             return
         # After interruption either side of each atomic write is safe to retry.
         pending = {k: [seen[k], fingerprint(wanted.get(k))] for k in seen}
@@ -316,17 +335,139 @@ def sync(action, workspace, project, target):
                 raise SyncError(f"File changed during apply: {name}. Run plan again.")
             atomic_write(path, change.new)
         atomic_write(ledger, json_bytes(final))
+        if register and not binding.exists():
+            atomic_write(binding, json_bytes(identity))
+
+
+def registry_directory(workspace):
+    if git_path(workspace, "--show-toplevel") != workspace:
+        raise SyncError(f"Expected a workspace Git root: {workspace}")
+    return git_path(workspace, "--absolute-git-dir") / "project-fieldnotes-workspace"
+
+
+def install_directory(source, target):
+    """Publish a complete new directory without merging into existing user files."""
+    target.parent.mkdir(parents=True, exist_ok=True)
+    with tempfile.TemporaryDirectory(dir=target.parent) as stage:
+        ready = Path(stage) / "ready"
+        shutil.copytree(source, ready)
+        if target.exists():
+            expected = {p.relative_to(ready).as_posix(): p.read_bytes() for p in ready.rglob("*") if p.is_file()}
+            actual = {}
+            for p in target.rglob("*"):
+                relative = p.relative_to(target).as_posix()
+                safe_path(target, relative)
+                if p.is_file():
+                    actual[relative] = p.read_bytes()
+            if actual == expected:
+                return
+            raise SyncError(f"Refusing to replace {target}")
+        ready.rename(target)
+
+
+def initialize(workspace, target, project):
+    workspace, target = workspace.resolve(), target.resolve()
+    if workspace.is_relative_to(target) or target.is_relative_to(workspace):
+        raise SyncError("Keep the workspace and target checkout in separate directories")
+    if git_path(target, "--show-toplevel") != target:
+        raise SyncError("Run init at a Git checkout root or pass its path")
+    project = project or re.sub(r"[^a-z0-9]+", "-", target.name.lower()).strip("-")
+    if not project:
+        raise SyncError("Pass --project NAME using lowercase ASCII letters or digits")
+    project = identifier(project)
+    workspace.mkdir(parents=True, exist_ok=True)
+    manifest = safe_path(workspace, "workspace.json")
+    if not (workspace / ".git").exists():
+        if not manifest.exists() and any(workspace.iterdir()):
+            raise SyncError(f"Choose an empty workspace or one containing workspace.json: {workspace}")
+        subprocess.run(["git", "init", "-q", str(workspace)], check=True)
+    directory = registry_directory(workspace)
+    with write_lock(directory):
+        registry = directory / "checkouts.json"
+        targets = read_json(registry.read_bytes()) if registry.exists() else {}
+        key = str(target)
+        if key in targets and targets[key] != project:
+            raise SyncError(f"Checkout already registered as {targets[key]}")
+        metadata = git_path(target, "--absolute-git-dir") / "project-fieldnotes"
+        binding = metadata / "binding.json"
+        identity = {"workspace": str(workspace), "project": project}
+        if binding.exists() and read_json(binding.read_bytes()) != identity:
+            raise SyncError("Checkout already belongs to a different workspace or profile")
+        assets = Path(__file__).resolve().parent
+        if not manifest.exists():
+            bootstrap = directory / "bootstrap"
+            if not bootstrap.exists() and any(p.name != ".git" for p in workspace.iterdir()):
+                raise SyncError("Refusing to initialize an existing non-empty workspace")
+            atomic_write(bootstrap, b"1")
+            starter = assets / "examples/workspace/skills/decision-review"
+            install_directory(starter, safe_path(workspace, "skills/decision-review"))
+            atomic_write(manifest, json_bytes({"version": 1, "projects": {}, "mcp": {}}))
+            bootstrap.unlink(missing_ok=True)
+        config = read_json(manifest.read_bytes())
+        if config.get("version") != 1 or not isinstance(config.get("projects"), dict) or not isinstance(config.get("mcp"), dict):
+            raise SyncError("Expected a version 1 workspace with projects and mcp objects")
+        if project not in config["projects"]:
+            notes = "projects/" + project
+            install_directory(assets / "template", safe_path(workspace, notes))
+            skills = ["decision-review"] if safe_path(workspace, "skills/decision-review/SKILL.md").is_file() else []
+            config["projects"][project] = {"skills": skills, "mcp": [], "notes": notes}
+            atomic_write(manifest, json_bytes(config))
+        sync("apply", workspace, project, target, register=True)
+        targets[key] = project
+        atomic_write(registry, json_bytes(targets))
+        print(f"Project {project} is connected. Edit {workspace / config['projects'][project]['notes'] / 'START-HERE.md'}")
+
+
+def sync_registered(workspace, check):
+    workspace = workspace.resolve()
+    if not workspace.is_dir():
+        raise SyncError(f"No workspace at {workspace}. Connect a Git checkout with init first.")
+    directory = registry_directory(workspace)
+    registry = directory / "checkouts.json"
+    if not registry.is_file():
+        raise SyncError("No registered checkouts. Run init in a project first.")
+    with write_lock(directory):
+        targets = read_json(registry.read_bytes())
+        for target, project in targets.items():
+            path = Path(target)
+            if not path.is_dir() or git_path(path, "--show-toplevel") != path:
+                raise SyncError(f"Registered checkout moved or missing: {path}. Check {registry}")
+            binding = git_path(path, "--absolute-git-dir") / "project-fieldnotes/binding.json"
+            if not binding.is_file() or read_json(binding.read_bytes()) != {"workspace": str(workspace), "project": project}:
+                raise SyncError(f"Checkout binding changed: {path}. Check {registry}")
+            print(f"Plan {project} ({path})")
+            sync("plan", workspace, project, path)
+        if not check:
+            for target, project in targets.items():
+                print(f"Apply {project} ({target})")
+                sync("apply", workspace, project, Path(target))
 
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("action", choices=["plan", "apply"])
-    parser.add_argument("workspace", type=Path, help="Folder containing workspace.json")
-    parser.add_argument("project", help="Project key in the manifest")
-    parser.add_argument("target", type=Path, help="Root of the receiving Git checkout")
+    commands = parser.add_subparsers(dest="action", required=True)
+    for action in ("plan", "apply"):
+        command = commands.add_parser(action)
+        command.add_argument("workspace", type=Path, help="Folder containing workspace.json")
+        command.add_argument("project", help="Project key in the manifest")
+        command.add_argument("target", type=Path, help="Root of the receiving Git checkout")
+    init = commands.add_parser("init", help="Connect an existing Git checkout to a shared workspace")
+    init.add_argument("target", type=Path, nargs="?", help="Receiving Git checkout (default: current directory)")
+    init.add_argument("--project", help="Override the profile name derived from the checkout folder")
+    batch = commands.add_parser("sync", help="Sync all locally registered checkouts")
+    batch.add_argument("--check", action="store_true", help="Preview changes without applying them")
+    for command in (init, batch):
+        command.add_argument("--workspace", type=Path, default=Path.home() / "fieldnotes-workspace")
     args = parser.parse_args()
     try:
-        sync(args.action, args.workspace, args.project, args.target)
+        if args.action == "init":
+            if args.target is None and Path.cwd().resolve() == Path(__file__).resolve().parent:
+                raise SyncError("Pass the path to the Git project you want to connect: python fieldnotes.py init PATH")
+            initialize(args.workspace, args.target or Path.cwd(), args.project)
+        elif args.action == "sync":
+            sync_registered(args.workspace, args.check)
+        else:
+            sync(args.action, args.workspace, args.project, args.target)
     except (OSError, ValueError, KeyError, TypeError, subprocess.CalledProcessError) as exc:
         parser.exit(1, f"Fieldnotes: {exc}\n")
 
