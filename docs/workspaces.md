@@ -12,7 +12,30 @@ Checkout paths are registered only on this machine in the workspace Git metadata
 
 ## Use a skill pack
 
-A project selects skills by name. By default they come from `skills/` in the workspace. To add a reviewed pack, put it in the workspace (for example as a Git submodule at `packs/library`) and add a top-level entry `"skill_roots": ["packs/library/skills"]` to `workspace.json`. Add just the desired skill names to a project's `skills` list. An ambiguous name stops the preview. Teammates get the pack revision recorded by Git with `git submodule update --init`. Fieldnotes reads local files and does not fetch or execute the pack during sync.
+The [Fieldnotes Skills library](https://github.com/StrangePers/fieldnotes-skills) includes `android-device-state-check` for testing a change on a device while preserving user data and `localized-screenshot-review` for comparing screenshots across locales.
+
+1. Connect your project with `init` as described above. From the root of your **private workspace** (by default `~/fieldnotes-workspace`), add the library once:
+
+   ```sh
+   git submodule add https://github.com/StrangePers/fieldnotes-skills.git packs/fieldnotes-skills
+   ```
+
+2. Edit the workspace's `workspace.json`. At the top level, add `"skill_roots": ["packs/fieldnotes-skills/skills"]`. If the list exists, append the path. In `projects`, find the profile you want to change and append one or both names to its `skills` list. For example, a profile that already uses the starter skill can have:
+
+   ```json
+   "skills": ["decision-review", "android-device-state-check", "localized-screenshot-review"]
+   ```
+
+3. From the **Project Fieldnotes tool repository**, preview and apply. If you used a custom workspace, add `--workspace PATH` to both commands.
+
+   ```sh
+   python fieldnotes.py sync --check
+   python fieldnotes.py sync
+   ```
+
+   The preview lists the selected skills under `.agents/skills/` and `.claude/skills/` in the receiving checkout. A second preview should report zero changes. If a local skill and a pack supply the same name, resolve the duplicate before syncing.
+
+4. To share the selection, commit `.gitmodules`, the `packs/fieldnotes-skills` submodule pointer and `workspace.json` in your private workspace. After cloning or pulling that workspace, teammates run `git submodule update --init` there, then register their checkout with `init`. Git checks out the library revision recorded by your team.
 
 ## Try the sample
 

@@ -28,6 +28,8 @@ Why did the team print a booking code under the QR on each ticket? Start with th
 
 ## Borrow a technique
 
+For Android device checks and localized screenshot reviews, [connect the optional Fieldnotes Skills library](docs/workspaces.md#use-a-skill-pack).
+
 | When you need to… | Try this |
 | --- | --- |
 | Bring a teammate or a fresh chat up to speed | [Hand off a project on one page](techniques/handoff.md) |

@@ -12,7 +12,30 @@
 
 ## Подключить библиотеку навыков
 
-Поместите проверенную подборку внутрь закрытой базы, например как Git submodule в `packs/library`. Укажите в корне `workspace.json` поле `"skill_roots": ["packs/library/skills"]`. Добавьте нужные имена в список `skills` конкретного проекта. При совпадении имён в разных источниках синхронизация остановится. На другой машине `git submodule update --init` получит закреплённую ревизию. При синхронизации Fieldnotes читает файлы локально.
+В [библиотеке Fieldnotes Skills](https://github.com/StrangePers/fieldnotes-skills) есть два навыка. `android-device-state-check` помогает проверить изменение на устройстве с сохранением пользовательских данных. `localized-screenshot-review` помогает сравнить скриншоты одного экрана на разных языках.
+
+1. Подключите проект командой `init`, как описано выше. Из корня **своей закрытой базы** (по умолчанию `~/fieldnotes-workspace`) один раз добавьте библиотеку:
+
+   ```sh
+   git submodule add https://github.com/StrangePers/fieldnotes-skills.git packs/fieldnotes-skills
+   ```
+
+2. В файле базы `workspace.json` добавьте на верхнем уровне `"skill_roots": ["packs/fieldnotes-skills/skills"]`. Если список уже есть, допишите путь в него. В разделе `projects` найдите профиль нужного проекта и добавьте одно или оба имени в его список `skills`. Например, для проекта со стартовым навыком список может выглядеть так:
+
+   ```json
+   "skills": ["decision-review", "android-device-state-check", "localized-screenshot-review"]
+   ```
+
+3. Из **репозитория утилиты Project Fieldnotes** посмотрите план и примените его. Если при подключении базы указывали `--workspace ПУТЬ`, добавьте его к обеим командам.
+
+   ```sh
+   python fieldnotes.py sync --check
+   python fieldnotes.py sync
+   ```
+
+   В плане появятся файлы выбранных навыков в `.agents/skills/` и `.claude/skills/` целевого проекта. Повторный просмотр должен показать ноль изменений. Если локальный навык и библиотека дают одинаковое имя, устраните совпадение перед синхронизацией.
+
+4. Для работы в команде закоммитьте в закрытой базе `.gitmodules`, указатель подмодуля `packs/fieldnotes-skills` и `workspace.json`. После клонирования или обновления этой базы участник выполняет в ней `git submodule update --init` и подключает свой checkout командой `init`. Git загрузит закреплённую командой версию библиотеки.
 
 ## Испытать на двух проектах
 
