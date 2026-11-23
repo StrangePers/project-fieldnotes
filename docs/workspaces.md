@@ -4,6 +4,8 @@ A workspace is a directory you control, usually a private Git repository. It hol
 
 ## Try the sample
 
+**Client compatibility on Windows.** Codex CLI 0.166.0 and Claude Code 2.1.316 passed the skill, instruction and project-specific MCP checks. In a separate test, Codex CLI 0.41.0 loaded the project instructions but missed the shared skill in both checkouts and the selected MCP server in the documentation checkout. Run `codex --version` when investigating this symptom. Versions between these two Codex releases have not been tested here.
+
 You need Git, Python 3.11 or later and a text editor. Run these commands from the Project Fieldnotes repository. The two example targets should be new directories. On Windows, use `python` as shown. On systems where Python 3 is named `python3`, substitute that command.
 
 ```sh
