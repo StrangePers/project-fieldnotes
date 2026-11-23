@@ -25,3 +25,9 @@ Why did the team print a booking code under the QR on each ticket? Start with th
 | Decide whether an observation warrants a change | [Test an idea before adopting it](techniques/verify-an-idea.md) |
 
 Each technique works on its own in your existing docs. The templates need only a text editor.
+
+## License
+
+You can copy the [blank templates](template/) into a private or commercial project and fill them in without attribution. They are available under [CC0 1.0](template/LICENSE).
+
+You can share, translate and adapt the guides and worked examples under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). When sharing them, credit **Project Fieldnotes by StrangePers**, link to the project and license, and indicate any changes. See the [license notice](LICENSE) for a ready-to-copy credit.
