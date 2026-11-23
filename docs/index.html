@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Connect skills, MCP settings and decision notes to the projects that need them.">
+  <title>Project Fieldnotes</title>
+  <style>
+    :root { color-scheme: light; color: #222e26; background: #f8f6ee; font: 17px/1.6 system-ui, sans-serif; }
+    * { box-sizing: border-box; }
+    body { max-width: 54rem; margin: auto; padding: 0 clamp(1.2rem, 5vw, 3rem); }
+    header, footer { display: flex; justify-content: space-between; flex-wrap: wrap; gap: .8rem; padding: 1.3rem 0; }
+    header { border-bottom: 1px solid #9dafa1; }
+    footer, section { border-top: 1px solid #9dafa1; }
+    h1, h2 { font-family: Georgia, serif; font-weight: 500; line-height: 1.12; }
+    h1 { font-size: clamp(3rem, 8vw, 5.2rem); margin: clamp(2.5rem, 8vw, 5rem) 0 1rem; }
+    h2 { font-size: clamp(1.7rem, 4vw, 2.3rem); margin: 0; }
+    p { max-width: 65ch; }
+    section { margin-top: 2.5rem; padding-top: 1.7rem; }
+    main { padding-bottom: 3rem; }
+    a { color: #21553c; text-underline-offset: .18em; }
+    a:focus-visible { outline: 2px solid currentColor; outline-offset: 3px; }
+  </style>
+</head>
+<body>
+  <header><a href="https://github.com/StrangePers/project-fieldnotes">GitHub repository</a><a lang="ru" hreflang="ru" href="https://github.com/StrangePers/project-fieldnotes/blob/main/ru/README.md">Руководство на русском</a></header>
+  <main>
+    <h1>Project Fieldnotes</h1>
+    <p>Connect each repository to the skills, MCP settings and notes it needs. A project notebook gives the next chat a place to find decisions and the evidence behind them.</p>
+    <p><a href="https://github.com/StrangePers/project-fieldnotes#connect-your-first-project">Connect your first project</a> · <a href="https://github.com/StrangePers/project-fieldnotes/blob/main/examples/lantern/START-HERE.md">Read a sample notebook</a></p>
+    <section id="roleshuttle" aria-labelledby="handoff">
+      <h2 id="handoff">Keep a decision after a RoleShuttle review</h2>
+      <p>In the CSV export example, the project owner chose to export only selected orders so a support operator could check which records would leave the app. The notebook links that choice to its source and says when to revisit it.</p>
+      <p>With <a href="https://github.com/StrangePers/RoleShuttle">RoleShuttle</a>, your chat can hand implementation and review to different models. When you accept a decision worth keeping, ask the chat to write it in the Fieldnotes notebook you choose.</p>
+      <p><a href="https://github.com/StrangePers/RoleShuttle/blob/v0.1.0a14/examples/project-notes/decisions/export-selection.md">Read the example decision</a> · <a href="https://github.com/StrangePers/RoleShuttle/blob/v0.1.0a14/docs/integrations.md#project-fieldnotes">Use Fieldnotes with RoleShuttle</a></p>
+    </section>
+  </main>
+  <footer><span>Project Fieldnotes by StrangePers</span><a href="https://github.com/StrangePers/project-fieldnotes/blob/main/LICENSE">Licenses</a></footer>
+</body>
+</html>

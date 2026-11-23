@@ -14,7 +14,7 @@ This creates a local workspace at `~/fieldnotes-workspace`, connects the checkou
 
 Why did the team print a booking code under the QR on each ticket? Start with the [Lantern Film Club's project notes](examples/lantern/START-HERE.md). Follow one decision to the rehearsal that prompted it. The same page also records a question the team still can't answer.
 
-[Читать по-русски](ru/README.md)
+[Project page](https://strangepers.github.io/project-fieldnotes/) · [Читать по-русски](ru/README.md)
 
 ## Start a notebook for your project
 
@@ -27,6 +27,8 @@ Why did the team print a booking code under the QR on each ticket? Start with th
 4. In a fresh chat with access to the project, ask why the team made that choice and what would make it reconsider. Open the source in the answer and check that it supports the explanation. If the source is inaccessible, ask which record the assistant could verify.
 
 ## Borrow a technique
+
+[RoleShuttle](https://github.com/StrangePers/RoleShuttle) lets your chat delegate implementation and review. When a review settles a project decision, ask the chat to record the choice, its reason and a source in the Fieldnotes notebook you select. In the [worked example](https://github.com/StrangePers/RoleShuttle/blob/v0.1.0a14/examples/project-notes/decisions/export-selection.md), the next chat can look up why the CSV export includes only explicitly selected orders.
 
 For Android device checks and localized screenshot reviews, [connect the optional Fieldnotes Skills library](docs/workspaces.md#use-a-skill-pack).
 

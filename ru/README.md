@@ -1,6 +1,6 @@
 # Project Fieldnotes
 
-[English](../README.md)
+[Страница проекта](https://strangepers.github.io/project-fieldnotes/) · [English](../README.md)
 
 Project Fieldnotes позволяет вести одну закрытую базу навыков, MCP-подключений и знаний для нескольких проектов. Claude Code и Codex получают выбранные для конкретного проекта материалы.
 
@@ -26,6 +26,8 @@ python fieldnotes.py init /path/to/your-project
 Для второй базы скопируйте исходную папку шаблона ещё раз. Проекты могут хранить заметки в собственных репозиториях.
 
 ## Взять одну технику
+
+С [RoleShuttle](https://github.com/StrangePers/RoleShuttle) ваш чат может поручить реализацию и ревью разным моделям. Если после ревью вы приняли решение, попросите чат записать его в выбранный блокнот Fieldnotes вместе с причиной и ссылкой на источник. В [примере с CSV](https://github.com/StrangePers/RoleShuttle/blob/v0.1.0a14/examples/project-notes/decisions/export-selection.md) следующий чат сможет узнать, почему в экспорт попадают только явно выбранные заказы.
 
 Для проверок на Android-устройстве и ревью локализованных скриншотов [подключите библиотеку Fieldnotes Skills](workspaces.md#подключить-библиотеку-навыков).
 
