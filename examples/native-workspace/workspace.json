@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "skill_roots": ["packs/fieldnotes-skills/skills"],
+  "mcp": {},
+  "projects": {
+    "native": {
+      "skills": [
+        "qt-headless-ui-check",
+        "cpp-dll-abi-check",
+        "native-decompiler-crosscheck"
+      ],
+      "mcp": [],
+      "notes": "projects/native"
+    }
+  }
+}
